@@ -1,0 +1,47 @@
+version: '3.5'
+services:
+    php:
+        build:
+            context: php
+        container_name: php
+        ports:
+            - 80:80
+        networks:
+            - frontend
+            - backend
+        volumes:
+            - ./app:/var/www/html
+        restart: always
+    db:
+        image: mysql:${MYSQL_VERSION}
+        container_name: ${MYSQL_HOST}
+        networks:
+            - backend
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        volumes:
+            - ./data/:/var/lib/mysql
+        restart: always
+    phpmyadmin:
+        image: phpmyadmin:${PHPMYADMIN_VERSION}
+        ports:
+            - 8080:80
+        networks:
+            - frontend
+            - backend
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=${MYSQL_HOST}
+            - PMA_USER=${MYSQL_USER}
+            - PMA_PASSWORD=${MYSQL_PASSWORD}
+        restart: always
+        depends_on:
+            - db
+
+networks:
+  frontend:
+  backend:
+  
