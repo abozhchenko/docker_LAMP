@@ -11,7 +11,7 @@ You need to run the site from this [repository](https://github.com/mentorchita/B
 ## Installation
 1. Clone this repository to localhost:
 ```sh
-git clone https://github.com/abozhchenko/docker_LEMP.git
+git clone https://github.com/abozhchenko/docker_LAMP.git
 ```
 2. Edit credentials in files `.env` and `./app/files/connection.php` 
 ```sh
